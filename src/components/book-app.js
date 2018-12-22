@@ -8,26 +8,54 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { LitElement, html } from '@polymer/lit-element';
+import {
+  LitElement,
+  html
+} from '@polymer/lit-element';
 
 import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 
-import { menuIcon, backIcon, accountIcon } from './book-icons.js';
+import {
+  menuIcon,
+  backIcon,
+  accountIcon
+} from './book-icons.js';
 import './snack-bar.js';
 import './book-input-decorator.js';
 import './speech-mic.js';
 import './book-home.js';
 
-import { connect } from 'pwa-helpers/connect-mixin.js';
-import { installRouter } from 'pwa-helpers/router.js';
-import { installOfflineWatcher } from 'pwa-helpers/network.js';
-import { installMediaQueryWatcher } from 'pwa-helpers/media-query.js';
+import {
+  connect
+} from 'pwa-helpers/connect-mixin.js';
+import {
+  installRouter
+} from 'pwa-helpers/router.js';
+import {
+  installOfflineWatcher
+} from 'pwa-helpers/network.js';
+import {
+  installMediaQueryWatcher
+} from 'pwa-helpers/media-query.js';
 
-import { store } from '../store.js';
-import { navigate, updateLocationURL, updateOffline, updateLayout, showSnackbar, updateDrawerState } from '../actions/app.js';
-import { signIn, signOut, fetchUser } from '../actions/auth.js';
+import {
+  store
+} from '../store.js';
+import {
+  navigate,
+  updateLocationURL,
+  updateOffline,
+  updateLayout,
+  showSnackbar,
+  updateDrawerState
+} from '../actions/app.js';
+import {
+  signIn,
+  signOut,
+  fetchUser
+} from '../actions/auth.js';
 
 class BookApp extends connect(store)(LitElement) {
   render() {
@@ -57,11 +85,11 @@ class BookApp extends connect(store)(LitElement) {
     const inputAtTop = ('ontouchstart' in window || !_wideLayout) || (_page === 'explore' && _query) || _page === 'detail' || _page === 'viewer';
     // back button href
     const backHref = _page === 'detail' ?
-        (_lastVisitedListPage === 'favorites' ? '/favorites' : `/explore?q=${_query}`) : `/detail/${_bookId}`;
+      (_lastVisitedListPage === 'favorites' ? '/favorites' : `/explore?q=${_query}`) : `/detail/${_bookId}`;
     // query
     const query = _page === 'home' ? '' : _query;
 
-    return html`
+    return html `
     <style>
       :host {
         display: block;
@@ -264,7 +292,7 @@ class BookApp extends connect(store)(LitElement) {
     </main>
 
     <footer>
-      <p>Made with &lt;3 by the Polymer team.</p>
+      <p>Made with &lt;3 by the direkshan.digital team.</p>
     </footer>
 
     <snack-bar ?active="${_snackbarOpened}">
@@ -274,19 +302,45 @@ class BookApp extends connect(store)(LitElement) {
 
   static get properties() {
     return {
-      appTitle: { type: String },
-      _page: { type: String },
-      _lazyResourcesLoaded: { type: Boolean },
-      _subTitle: { type: String },
-      _lastVisitedListPage: { type: Boolean },
-      _offline: { type: Boolean },
-      _wideLayout: { type: Boolean },
-      _drawerOpened: { type: Boolean },
-      _snackbarOpened: { type: Boolean },
-      _authInitialized: { type: Boolean },
-      _user: { type: Object },
-      _query: { type: String },
-      _bookId: { type: String }
+      appTitle: {
+        type: String
+      },
+      _page: {
+        type: String
+      },
+      _lazyResourcesLoaded: {
+        type: Boolean
+      },
+      _subTitle: {
+        type: String
+      },
+      _lastVisitedListPage: {
+        type: Boolean
+      },
+      _offline: {
+        type: Boolean
+      },
+      _wideLayout: {
+        type: Boolean
+      },
+      _drawerOpened: {
+        type: Boolean
+      },
+      _snackbarOpened: {
+        type: Boolean
+      },
+      _authInitialized: {
+        type: Boolean
+      },
+      _user: {
+        type: Object
+      },
+      _query: {
+        type: String
+      },
+      _bookId: {
+        type: String
+      }
     }
   }
 
@@ -300,7 +354,7 @@ class BookApp extends connect(store)(LitElement) {
     installRouter((location) => store.dispatch(navigate(location)));
     installOfflineWatcher((offline) => store.dispatch(updateOffline(offline)));
     installMediaQueryWatcher(`(min-width: 648px) and (min-height: 648px)`,
-        (matches) => store.dispatch(updateLayout(matches)));
+      (matches) => store.dispatch(updateLayout(matches)));
     this.removeAttribute('unresolved');
     this._input = this.shadowRoot.getElementById('input');
     // get authenticated user
